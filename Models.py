@@ -81,11 +81,13 @@ def example_model(X_data, datas_Y):
 
 	opt = keras.optimizers.Adam(lr=0.001)
 
+	tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+
 	model.compile(
 			loss='categorical_crossentropy',
 			optimizer= opt,
 			metrics= ['accuracy']
 		)
 
-	model.fit(X_data,datas_Y,epochs=6000)
+	model.fit(X_data,datas_Y,epochs=6000, callbacks=[tensorboard])
 	model.save("Example_code_weight_2.h5")
