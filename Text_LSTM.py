@@ -4,6 +4,10 @@ import keras
 from keras.models import load_model
 
 from Models import example_model
+from keras.callbacks import TensorBoard
+# import time
+from time import time 
+# from keras.callbacks import load_model
 
 model_name = "Example_code_weight_2.h5" # this is the model's weight
 
@@ -146,9 +150,25 @@ def Text_Generator(reversed_dictionary, dictionary): # continous text prediction
 	print(text)
 
 
+def continuation_Train(X_data, datas_Y, model_name):
+	loaded_model = load_model(model_name)
+	tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+
+	opt = keras.optimizers.Adam(lr=0.001)
+	loaded_model = load_model(model_name)
+	loaded_model.compile(
+		    loss='categorical_crossentropy',
+		    optimizer=opt,
+		    metrics=['accuracy']
+	)
+
+	loaded_model.fit(X_data,datas_Y, epochs=1400, callbacks=[tensorboard])
+	loaded_model.save("Example_code_weight_3.h5")
+
 
 if __name__ == '__main__':
 	# example_model(X_data,datas_Y) # use this for training
 
 	# predict(reversed_dictionary,dictionary) #single word prediction
-	Text_Generator(reversed_dictionary, dictionary) #Text_generation
+	continuation_Train(X_data, datas_Y,model_name)
+	# Text_Generator(reversed_dictionary, dictionary) #Text_generation
