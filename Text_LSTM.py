@@ -2,7 +2,7 @@ import numpy as np
 np.set_printoptions(threshold=np.nan) # to see the entire numpy data for debugging 
 import keras
 from keras.models import load_model
-
+# %frZWUr9T.CM%Y7
 from Models import example_model
 from keras.callbacks import TensorBoard
 # import time
